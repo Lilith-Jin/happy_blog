@@ -1,0 +1,13 @@
+<%= form_with(model: blog) do |form| %>
+<div class="blog-field">
+  <%= form.label :title, "名稱" %>
+  <%= form.text_field :title %>
+</div>
+<div class="blog-field">
+  <%= form.label :content, "簡介" %>
+  <%= form.text_area :content %>
+</div>
+<div>
+  <%= form.submit btn_label%>
+</div>
+<% end %>

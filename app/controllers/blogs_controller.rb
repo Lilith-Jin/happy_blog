@@ -4,6 +4,7 @@ class BlogsController < ApplicationController
 
   def index
     @blogs = Blog.all
+    @user_blogs = Blog.find(params[:id]).user_blogs.all
   end
 
   def new
@@ -47,7 +48,7 @@ class BlogsController < ApplicationController
 
   private
   def blog_params
-    params.require(:blog).permit(:title, :content)
+    params.require(:blog,:user_blog).permit(:title, :content, :email)
   end
 
   def find_blog

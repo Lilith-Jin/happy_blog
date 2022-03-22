@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
-  resources :blogs
   root to: "home#index"
+  devise_for :users
+
+  resources :blogs do
+    resources :user_blogs, only:[:index, :new, :create]
+  end
+    resources :user_blogs, only:[:show, :edit, :update, :destroy]
 end

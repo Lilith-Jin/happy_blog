@@ -1,0 +1,10 @@
+<h1>管理員列表</h1>
+<section class="user_role">
+  <% @user_blogs.each do |user_blog|%>
+      <div>信箱：<%= user_blog.user.email %></div>
+      <div>角色：<%= user_blog.role %></div>
+      <div><%#= link_to "詳細內容", blog_path(blog) %></div>
+      <div><%#= link_to "編輯", edit_blog_path(blog) %></div>
+      <div><%#= link_to "刪除", blog_path(blog), method: 'delete', data: { confirm: '確認刪除？' } %></div>
+  <% end %>
+</section>

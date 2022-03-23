@@ -5,6 +5,7 @@
       <div>名稱：<%= blog.title %></div>
       <div>簡介：<%= blog.content %></div>
       <div><%= link_to "詳細內容", blog_path(blog) %></div>
+      <div><%= link_to "管理人員", blog＿user_blogs_path(blog) %></div>
       <div><%= link_to "編輯", edit_blog_path(blog) %></div>
       <div><%= link_to "刪除", blog_path(blog), method: 'delete', data: { confirm: '確認刪除？' } %></div>
   <% end %>

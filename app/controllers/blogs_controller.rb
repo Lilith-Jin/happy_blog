@@ -4,7 +4,7 @@ class BlogsController < ApplicationController
 
   def index
     @blogs = Blog.all
-    @user_blogs = @blogs.map{|b|b.user_blogs.all}.flatten
+    @user_blogs = UserBlog.all
   end
 
   def new

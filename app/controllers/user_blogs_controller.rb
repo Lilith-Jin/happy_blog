@@ -13,8 +13,7 @@ class UserBlogsController < ApplicationController
   def create
     @blog = Blog.find(params[:blog_id])
     @user = User.find(params[:user_id])
-    @user_blog
-    user_blog = UserBlog. 
+    user_blog = UserBlog.create(user: @user, blog: @blog, role:"viewer") 
   end
 
   def show

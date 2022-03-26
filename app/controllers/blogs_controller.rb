@@ -12,7 +12,6 @@ class BlogsController < ApplicationController
 
   def create
     @blog = current_user.blogs.new(blog_params)
-
     if @blog.save
       UserBlog.create(user: current_user,
                       blog: @blog,
@@ -47,7 +46,7 @@ class BlogsController < ApplicationController
 
   private
   def blog_params
-    params.require(:blog,:user_blog).permit(:title, :content, :email)
+    params.require(:blog).permit(:title, :content)
   end
 
   def find_blog

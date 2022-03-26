@@ -27,4 +27,9 @@ class UserBlogsController < ApplicationController
 
   def destroy
   end
+
+  private
+  def set_role
+    params.require(:user).permit(:email)
+  end
 end

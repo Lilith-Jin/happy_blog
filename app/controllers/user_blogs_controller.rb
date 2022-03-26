@@ -12,8 +12,8 @@ class UserBlogsController < ApplicationController
 
   def create
     @blog = Blog.find(params[:blog_id])
-    @user = User.find(params[:user_id])
-    user_blog = UserBlog.create(user: @user, blog: @blog, role:"viewer") 
+    @user = User.find_by(email: set_role[:email])
+    user_blog = UserBlog.find_by(user_id: @user, blog_id: @blog) 
   end
 
   def show

@@ -3,8 +3,7 @@ class BlogsController < ApplicationController
   before_action :find_blog, only:[:edit, :update, :destroy]
 
   def index
-    @blogs = Blog.all
-    @user_blogs = UserBlog.all
+    @blogs = Blog.includes(:user_blogs)
   end
 
   def new

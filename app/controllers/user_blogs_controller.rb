@@ -28,6 +28,7 @@ class UserBlogsController < ApplicationController
   end
 
   def edit
+    UserBlog.where(blog_id:params[:blog_id])
   end
 
   def update

@@ -1,0 +1,15 @@
+<%= form_with scope: :user_blogs, url: blog_user_blogs_path  do |u| %>
+<div class="member-field">
+  <%= u.label :email, "信箱" %>
+  <%= u.email_field :email %>
+</div>
+<div class="member-field">
+  <%= u.radio_button :role,"manager" %>
+  <%= u.label :role,"管理員"%>
+  <%= u.radio_button :role, "viewer" %>
+  <%= u.label :role, "一般用戶" %>
+</div>
+<div>
+  <%= u.submit "更新" %>
+</div>
+<% end %>

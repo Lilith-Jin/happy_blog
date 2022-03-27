@@ -1,4 +1,5 @@
 <h1>管理員列表</h1>
+<button><%= link_to "新增成員", new_blog_user_blog_path %></button>
 <section class="user_role">
   <% @user_blogs.each do |user_blog|%>
       <div>信箱：<%= user_blog.user.email %></div>

@@ -3,7 +3,7 @@ class BlogsController < ApplicationController
   before_action :find_blog, only:[:edit, :update, :destroy]
 
   def index
-    @blogs = Blog.all
+    @blogs = Blog.includes(:user_blogs)
   end
 
   def new
@@ -12,7 +12,6 @@ class BlogsController < ApplicationController
 
   def create
     @blog = current_user.blogs.new(blog_params)
-
     if @blog.save
       UserBlog.create(user: current_user,
                       blog: @blog,

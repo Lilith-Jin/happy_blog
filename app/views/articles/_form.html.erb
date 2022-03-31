@@ -1,0 +1,13 @@
+<%= form_with(model: article) do |form| %>
+<div class="article-field">
+  <%= form.label :title, "文章標題" %>
+  <%= form.text_field :title %>
+</div>
+<div class="article-field">
+  <%= form.label :content, "文章內容" %>
+  <%= form.text_area :content %>
+</div>
+<div>
+  <%= form.submit btn_label%>
+</div>
+<% end %>

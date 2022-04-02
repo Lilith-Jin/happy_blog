@@ -1,4 +1,4 @@
-<%= form_with(model: article) do |form| %>
+<%= form_with(model: [ :blog, @article ]) do |form| %>
 <div class="article-field">
   <%= form.label :title, "文章標題" %>
   <%= form.text_field :title %>

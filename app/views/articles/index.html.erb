@@ -4,8 +4,8 @@
   <% @articles.each do |arti|%>
       <div>名稱：<%= arti.title %></div>
       <div>簡介：<%= arti.content %></div>
-      <div><%= link_to "觀看內容", article_path(article) %></div>
-      <div><%= link_to "編輯", edit_article_path(article) %></div>
-      <div><%= link_to "刪除", article_path(article), method: 'delete', data: { confirm: '確認刪除？' } %></div>
+      <div><%= link_to "觀看內容", article_path([:id]) %></div>
+      <div><%= link_to "編輯", edit_article_path([:id]) %></div>
+      <div><%= link_to "刪除", article_path([:id]), method: 'delete', data: { confirm: '確認刪除？' } %></div>
   <% end %>
 </section>

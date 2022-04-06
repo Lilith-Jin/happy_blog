@@ -28,6 +28,11 @@ class ArticlesController < ApplicationController
   end
 
   def update
+    if @article.status != "true"
+      @article.update(status: "false ")
+    else
+      @article.update(status: "true")
+    end
     if @article.update(article_params)
     redirect_to blog_articles_path(@blog.id), notice:"文章更新成功"
     else
@@ -43,7 +48,7 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:title, :content)
+    params.require(:article).permit(:title, :content, :status)
   end
 
   def find_blog

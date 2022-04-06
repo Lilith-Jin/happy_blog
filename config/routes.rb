@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :blogs do
     resources :articles, shallow: true do
       member do
-        get :public
+        get :status
       end
     end
     resources :user_blogs, only:[:index, :new, :create]

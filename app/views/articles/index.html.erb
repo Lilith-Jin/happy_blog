@@ -1,11 +1,11 @@
 <h1>文章列表</h1>
-<button><%= link_to "新增文章", new_blog_article_path%></button>
+<button><%= link_to "新增文章", new_blog_article_path %></button>
 <section class="article-list">
   <% @articles.each do |arti|%>
       <div>名稱：<%= arti.title %></div>
       <div>簡介：<%= arti.content %></div>
-      <div><%= link_to "觀看內容", article_path([:id]) %></div>
-      <div><%= link_to "編輯", edit_article_path([:id]) %></div>
-      <div><%= link_to "刪除", article_path([:id]), method: 'delete', data: { confirm: '確認刪除？' } %></div>
+      <div><%= link_to "觀看內容", article_path(arti) %></div>
+      <div><%= link_to "編輯", edit_article_path(arti) %></div>
+      <div><%= link_to "刪除", article_path(arti), method: 'delete', data: { confirm: '確認刪除？' } %></div>
   <% end %>
 </section>

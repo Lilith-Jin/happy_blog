@@ -1,2 +1,15 @@
 <h1>編輯文章</h1>
-<%= render "form", article: @article, btn_label:"編輯文章"%>
+<%#= render "form", article: @article, btn_label:"編輯文章"%>
+<%= form_with(model: @article ) do |form| %>
+<div class="article-field">
+  <%= form.label :title, "文章標題" %>
+  <%= form.text_field :title %>
+</div>
+<div class="article-field">
+  <%= form.label :content, "文章內容" %>
+  <%= form.text_area :content %>
+</div>
+<div>
+  <%= form.submit "修改文章"%>
+</div>
+<% end %>

@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
   before_action :authenticate_user!, expect:[:index, :show]
-  before_action :find_blog, only:[:edit, :update, :destroy]
+  before_action :find_blog, only:[:edit, :show, :update, :destroy]
 
   def index
     @blogs = Blog.includes(:user_blogs)
@@ -25,6 +25,7 @@ class BlogsController < ApplicationController
   end
 
   def show
+    @articles = @blog.articles
   end
 
   def edit
@@ -50,6 +51,10 @@ class BlogsController < ApplicationController
   end
 
   def find_blog
+    if current_user.blogs.ids.include?(Blog.find(params[:id]).id)
     @blog = current_user.blogs.find(params[:id])
+    else 
+      redirect_to blogs_path, notice: "你沒有此部落格文章編輯權限"
+    end
   end
 end

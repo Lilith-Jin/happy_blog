@@ -14,7 +14,7 @@ class ArticlesController < ApplicationController
   def create
     @article = @blog.articles.build(article_params)
     if @article.save
-      redirect_to blog_articles_path(@blog.id), notice: "文章新增成功" 
+      redirect_to blog_path(@blog.id), notice: "文章新增成功" 
     else
       render :new
     end
@@ -34,7 +34,7 @@ class ArticlesController < ApplicationController
       @article.update(status: "true")
     end
     if @article.update(article_params)
-    redirect_to blog_articles_path(@blog.id), notice:"文章更新成功"
+    redirect_to blog_path(@blog.id), notice:"文章更新成功"
     else
       render :edit
     end
@@ -42,7 +42,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    redirect_to blog_articles_path(@blog.id), notice:"文章刪除成功"
+    redirect_to blog_path(@blog.id), notice:"文章刪除成功"
     
   end
 
@@ -52,11 +52,15 @@ class ArticlesController < ApplicationController
   end
 
   def find_blog
-    @blog = Blog.find_by(params[:blog_id])
+    @blog = current_user.blogs.find_by(params[:blog_id])
   end
 
   def find_article
+    # if current_user.blogs.articles.ids.includes?(Article.find(params[:id]))
     @article = Article.find(params[:id])
+    # else
+      # redirect_to blogs_path(@blog.id)
+    # end
   end 
 
 end

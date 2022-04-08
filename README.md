@@ -1,24 +1,11 @@
-# README
+- Ruby Version 3.0.0
+- Rails Version 6.1.4
+- 資料庫：SQLite3
+- 前端：Bootstrap 5
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1.If you register as a user, you can create one or more blogs
+2.Multiple articles can be posted to a blog
+3.Articles can be set to public or private
+4.Users can be added to a blog
+  1.The admin can add the blog user as manager and manage articles.
+  2.Manager only allowed to post articles on partcipatng blogs.

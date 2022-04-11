@@ -1,5 +1,4 @@
 class UserBlog < ApplicationRecord
-  validates :email, presence: true
   validates :role, acceptance: true
   belongs_to :user
   belongs_to :blog

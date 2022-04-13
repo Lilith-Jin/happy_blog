@@ -54,7 +54,7 @@ class BlogsController < ApplicationController
     if current_user.blogs.ids.include?(Blog.find(params[:id]).id)
     @blog = current_user.blogs.find(params[:id])
     else 
-      redirect_to blogs_path, notice: "你沒有此部落格文章編輯權限"
+      redirect_to blogs_path, notice: "你沒有更新此部落格權限"
     end
   end
 end

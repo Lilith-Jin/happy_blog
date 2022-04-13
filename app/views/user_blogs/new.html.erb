@@ -4,10 +4,13 @@
   <%= u.email_field :email %>
 </div>
 <div class="member-field">
-  <%= u.radio_button :role,"manager" %>
-  <%= u.label :role,"管理員"%>
-  <%= u.radio_button :role, "viewer" %>
-  <%= u.label :role, "一般用戶" %>
+  <%#= u.radio_button :role,"manager" %>
+  <%#= u.label :role,"管理員"%>
+  <%#= u.radio_button :role, "viewer" %>
+  <%#= u.label :role, "一般用戶" %>
+  <%= u.label :role, "權限"%>
+  <% role_array = UserBlog.roles.map{|key,value|[key,key]}%>
+  <%= u.select :role, options_for_select(role_array)%>
 </div>
 <div>
   <%= u.submit "新增管理員" %>

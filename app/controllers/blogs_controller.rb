@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
   before_action :authenticate_user!, expect:[:index, :show]
-  before_action :find_blog, only:[:edit, :show, :update, :destroy]
+  before_action :find_blog, only:[:edit, :update, :destroy]
 
   def index
     @blogs = Blog.includes(:user_blogs)
@@ -25,6 +25,7 @@ class BlogsController < ApplicationController
   end
 
   def show
+    @blog = Blog.find(params[:id])
     @articles = @blog.articles
   end
 
@@ -58,5 +59,5 @@ class BlogsController < ApplicationController
     end
   end
 
-  
+
 end

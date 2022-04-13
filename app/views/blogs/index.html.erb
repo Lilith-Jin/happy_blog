@@ -5,8 +5,13 @@
       <div>名稱：<%= blog.title %></div>
       <div>簡介：<%= blog.content %></div>
       <div><%= link_to "進入部落格", blog_path(blog) %></div>
-      <div><%= link_to "管理人員", blog_user_blogs_path(blog) %></div>
+      <%if blog.user_blogs.where(user:current_user).pluck(:role).join=="admin"%>
+        <div><%= link_to "管理人員", blog_user_blogs_path(blog) %></div>
+        <div><%= link_to "編輯", edit_blog_path(blog) %></div>
+        <div><%= link_to "刪除", blog_path(blog), method: 'delete', data: { confirm: '確認刪除？' } %></div>
+      <%else%>
       <div><%= link_to "編輯", edit_blog_path(blog) %></div>
       <div><%= link_to "刪除", blog_path(blog), method: 'delete', data: { confirm: '確認刪除？' } %></div>
+      <%end%>
   <% end %>
 </section>

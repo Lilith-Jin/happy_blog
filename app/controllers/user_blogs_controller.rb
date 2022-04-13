@@ -1,6 +1,6 @@
 class UserBlogsController < ApplicationController
   before_action :authenticate_user!, expect:[:index, :show]
-  before_action :find_user_blog, only:[:edit, :update, :destroy]
+  before_action :find_user_blog, only:[:new, :create, :destroy]
 
   def index
     @blog = Blog.find(params[:blog_id])

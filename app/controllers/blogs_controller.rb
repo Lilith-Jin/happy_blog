@@ -57,4 +57,6 @@ class BlogsController < ApplicationController
       redirect_to blogs_path, notice: "你沒有更新此部落格權限"
     end
   end
+
+  
 end

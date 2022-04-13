@@ -1,10 +1,10 @@
 class UserBlogsController < ApplicationController
   before_action :authenticate_user!, expect:[:index, :show]
   before_action :find_user_blog, only:[:new, :create, :destroy]
+  before_action :check_role, only:[:index]
 
   def index
-    @blog = Blog.find(params[:blog_id])
-    @user_blogs = @blog.user_blogs.all
+
   end
 
   def new
@@ -45,5 +45,14 @@ class UserBlogsController < ApplicationController
 
   def find_user_blog
     @user_blog = UserBlog.find(params[:id])
+  end
+
+  def check_role
+    if Blog.find(params[:blog_id]).user_blogs.where(user:current_user,role:"admin").present?
+      @blog = Blog.find(params[:blog_id])
+      @user_blogs = @blog.user_blogs.all
+    else 
+      redirect_to blogs_path, notice: "你沒有變更管理人員權限"
+    end
   end
 end

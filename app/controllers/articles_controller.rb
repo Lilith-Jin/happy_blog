@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_blog, only:[:index, :new, :create,:update, :destroy]
+  before_action :find_blog, only:[:index, :new, :create,]
   before_action :find_article, except:[:index, :new, :create]
 
   def index
@@ -12,6 +12,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
+    # byebug
     @article = @blog.articles.build(article_params)
     if @article.save
       redirect_to blog_path(@blog.id), notice: "文章新增成功" 
@@ -34,7 +35,7 @@ class ArticlesController < ApplicationController
       @article.update(status: "true")
     end
     if @article.update(article_params)
-    redirect_to blog_path(@blog.id), notice:"文章更新成功"
+    redirect_to blogs_path, notice:"文章更新成功"
     else
       render :edit
     end
@@ -42,7 +43,7 @@ class ArticlesController < ApplicationController
 
   def destroy
     @article.destroy
-    redirect_to blog_path(@blog.id), notice:"文章刪除成功"
+    redirect_to blogs_path, notice:"文章刪除成功"
     
   end
 
@@ -52,7 +53,7 @@ class ArticlesController < ApplicationController
   end
 
   def find_blog
-    @blog = current_user.blogs.find_by(params[:blog_id])
+    @blog = Blog.find(params[:blog_id])
   end
 
   def find_article

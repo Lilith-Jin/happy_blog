@@ -9,6 +9,12 @@
   <%= form.label :content, "文章內容" %>
   <%= form.text_area :content %>
 </div>
+<div class="article-field">
+  <%= form.radio_button :status,"true" %>
+  <%= form.label :status,"公開"%>
+  <%= form.radio_button :status, "false" %>
+  <%= form.label :status, "非公開" %>
+</div>
 <div>
   <%= form.submit "新增文章"%>
 </div>

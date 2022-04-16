@@ -1,7 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_blog, only:[:index, :new, :create,]
-  before_action :find_article, except:[:index, :new, :create]
+  before_action :find_blog, only:[:index, :new, :create]
+  before_action :find_article, except:[:index, :show, :destroy]
 
   def index
     @articles = @blog.articles
@@ -42,9 +42,13 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article.destroy
-    redirect_to blogs_path, notice:"文章刪除成功"
     
+    if current_user.blogs.map{|b|b.articles}.map{ |a| a.pluck(:id)}.flatten.include?(Article.find(params[:id]))
+      @article.destroy
+      redirect_to blogs_path, notice:"文章刪除成功"
+    else
+      redirect_to blog_articles_path, notice:"很抱歉，您非此部落格管理員"
+    end
   end
 
   private
@@ -57,11 +61,12 @@ class ArticlesController < ApplicationController
   end
 
   def find_article
-    # if current_user.blogs.articles.ids.includes?(Article.find(params[:id]))
+    if current_user.blogs.ids.include?(Blog.find(params[:blog_id]))
     @article = Article.find(params[:id])
-    # else
-      # redirect_to blogs_path(@blog.id)
-    # end
+    else
+
+      redirect_to blogs_path(@blog.id), notice:"很抱歉，您非此部落格管理員"
+    end
   end 
 
 end

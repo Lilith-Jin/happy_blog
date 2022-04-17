@@ -1,15 +1,19 @@
 class ArticlesController < ApplicationController
   before_action :authenticate_user!
   before_action :find_blog, only:[:index, :new, :create]
-  # before_action :find_article, except:[:index, :show, :edit, :update, :destroy]
-  before_action :check_article_authority, only: [:edit, :update, :destroy]
+  before_action :find_article, only:[:index, :show]
+  before_action :check_article_authority, except: [:index, :show, :new, :create]
 
   def index
     @articles = @blog.articles
   end
 
   def new
-    @article = Article.new
+    if current_user.blogs.ids.include?(Blog.find(params[:blog_id]).id)
+      @article = Article.new
+    else
+      redirect_to blogs_path(@blog), notice:"很抱歉，您非此部落格管理員"
+    end  
   end
 
   def create
@@ -64,11 +68,10 @@ class ArticlesController < ApplicationController
   end
 
   def find_article
-    if current_user.blogs.ids.include?(Blog.find(params[:blog_id]).id)
+    if Article.find(params[:id]).status == true
     @article = Article.find(params[:id])
     else
-
-      redirect_to blogs_path(@blog), notice:"很抱歉，您非此部落格管理員"
+      redirect_to blogs_path(@blog), notice:"很抱歉，此文章尚未發布"
     end
   end 
 

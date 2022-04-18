@@ -25,6 +25,8 @@ class BlogsController < ApplicationController
   end
 
   def show
+    @blog = Blog.find(params[:id])
+    @articles = @blog.articles
   end
 
   def edit
@@ -50,6 +52,12 @@ class BlogsController < ApplicationController
   end
 
   def find_blog
+    if current_user.blogs.ids.include?(Blog.find(params[:id]).id)
     @blog = current_user.blogs.find(params[:id])
+    else 
+      redirect_to blogs_path, notice: "你沒有更新此部落格權限"
+    end
   end
+
+
 end

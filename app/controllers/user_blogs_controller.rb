@@ -1,9 +1,10 @@
 class UserBlogsController < ApplicationController
   before_action :authenticate_user!, expect:[:index, :show]
+  # before_action :find_user_blog, only:[:new, :create, :destroy]
+  before_action :check_role, only:[:index]
 
   def index
-    @blog = Blog.find(params[:blog_id])
-    @user_blogs = @blog.user_blogs.all
+
   end
 
   def new
@@ -12,31 +13,46 @@ class UserBlogsController < ApplicationController
 
   def create
     @blog = Blog.find(params[:blog_id])
-    @user = User.find_by(email: set_role[:email])
-    user_blog = UserBlog.find_by(user_id: @user, blog_id: @blog) 
-      if user_blog.present?
+    @user = User.find_by(email: role_params[:email])
+    @user_blog = UserBlog.find_by(user_id: @user,blog_id: @blog)
+    # binding.pry
+    # user_blog = @user.user_blogs.where(blog: params[:blog_id]) 
+   
+      if @user_blog.present?
+        redirect_to blog_user_blogs_path
         flash.alert = "此用戶已是部落格成員"
       else 
-        UserBlog.create(user: @user, blog: @blog, role: set_role[:role])
+        # @user.blogs << Blog.find_by(params[:blog_id]) 
+        # @user.user_blogs.last.update(role: set_role[:role])
+        UserBlog.create(user: @user, blog: @blog, role: role_params[:role])
+        # binding.pry
+        
         redirect_to blog_user_blogs_path, notice: "新增管理員成功!"
       end
   end
 
-  def show
-  end
-
-  def edit
-    UserBlog.where(blog_id:params[:blog_id])
-  end
-
-  def update
-  end
-
   def destroy
+    # @user_blog = UserBlog.find(params[:id])
+    @user_blog.destroy
+    redirect_to blogs_path(params[:id]), notice: "刪除管理員成功!"
   end
 
   private
-  def set_role
-    params.require(:user_blogs).permit(:email, :role)
+
+  def role_params
+    params.require(:user_blogs).permit(:role, :email)
+  end
+
+  def find_user_blog
+    @user_blog = UserBlog.find(params[:id])
+  end
+
+  def check_role
+    if Blog.find(params[:blog_id]).user_blogs.where(user:current_user,role:"admin").present?
+      @blog = Blog.find(params[:blog_id])
+      @user_blogs = @blog.user_blogs.all
+    else 
+      redirect_to blogs_path, notice: "你沒有變更管理人員權限"
+    end
   end
 end
